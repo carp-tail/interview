@@ -21,7 +21,7 @@ public class DirtyReadTest {
     synchronized void syncWrite(String name, double value){
         this.name = name;
         try {
-            TimeUnit.MILLISECONDS.sleep(1000);
+            TimeUnit.MILLISECONDS.sleep(1000); // 休眠一秒
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class DirtyReadTest {
             e.printStackTrace();
         }
 
-        test.noSyncRead(); // 读出来是name已改变，value还没改变（出现脏读）
+        test.noSyncRead(); // 读出来是name已改变，value还没改变（出现脏读），上述线程在休眠过程中进行读取，休眠时没有释放锁
         test.syncRead(); // 上面线程执行完之后才执行，读出来是name、value均已改变
     }
 }

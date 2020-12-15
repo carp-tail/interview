@@ -60,23 +60,63 @@ public class FiveContentStop {
          * 方法2
          */
 
+//        Thread thread1 = new Thread(()->{
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            for (int i = 1; i <= 10; i++){
+//                synchronized (collection){
+//                    collection.add(new Object());
+//                    System.out.println(Thread.currentThread().getName() + "添加第" + i + "个元素...");
+//                    if (collection.size() == 5){ // 这里其实不是线程2在监听
+//                        collection.notify(); // 唤醒线程2，但还没有释放锁
+//                        try {
+//                            collection.wait(); // 释放锁
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//        },"线程1");
+//
+//        Thread thread2 = new Thread(()->{
+//            System.out.println(Thread.currentThread().getName() + "启动");
+//            synchronized (collection){
+//                try {
+//                    collection.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println(Thread.currentThread().getName() + "结束");
+//                collection.notify();
+//            }
+//        }, "线程2");
+
+
+        /**
+         * 方法3
+         */
+
+        Thread thread2 = new Thread(()->{
+            System.out.println(Thread.currentThread().getName() + "启动");
+            LockSupport.park();
+            System.out.println(Thread.currentThread().getName() + "结束");
+        }, "线程2");
+
         Thread thread1 = new Thread(()->{
             for (int i = 1; i <= 10; i++){
-                synchronized (collection){
-                    collection.add(new Object());
-                    System.out.println(Thread.currentThread().getName() + "添加第" + i + "个元素...");
-                }
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                collection.add(new Object());
+                System.out.println(Thread.currentThread().getName() + "添加第" + i + "个元素...");
+                if (collection.size() == 5){
+                    LockSupport.unpark(thread2);
                 }
             }
         },"线程1");
 
-        Thread thread2 = new Thread(()->{
 
-        }, "线程2");
 
         thread1.start();
         thread2.start();

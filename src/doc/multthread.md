@@ -14,3 +14,4 @@ jdk早期是重量级锁，jdk1.6经过优化，出现了锁升级的概念
 volitale实际开发很少使用
 6.Lock 获取锁后需要手动释放锁，synchronized代码块执行完成之后自动释放锁
 7、ReadWriteLock(读写锁：实现共享锁和排它锁)
+8、wait() 会释放锁，notify() 和 notifyAll()不释放锁
