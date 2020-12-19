@@ -1,7 +1,6 @@
 package com.guaniu.mybatis.test;
 
 import com.google.common.collect.Maps;
-import netscape.security.UserTarget;
 import org.apache.ibatis.annotations.Select;
 
 import java.lang.annotation.Annotation;

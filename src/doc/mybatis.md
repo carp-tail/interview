@@ -1,0 +1,1 @@
+Mybatis 是开源的ORM(Object Relational Mapping)框架,将数据库表字段映射到数据对象
