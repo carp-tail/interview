@@ -22,7 +22,7 @@ public class CyclicBarrierTest {
 //            }
 //        });
 
-        CyclicBarrier barrier = new CyclicBarrier(20, ()->{
+        CyclicBarrier barrier = new CyclicBarrier(BARRIER_COUNT, ()->{
             System.out.println("满" + BARRIER_COUNT + "计数");
         });
 

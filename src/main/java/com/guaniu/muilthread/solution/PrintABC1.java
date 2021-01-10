@@ -2,7 +2,7 @@ package com.guaniu.muilthread.solution;
 
 /**
  * @Author: guaniu
- * @Description: 三个线程循环打印 A B C 固定次数
+ * @Description: 问题：三个线程循环打印 A B C 固定次数
  * @Date: Create in 10:21 2020/12/10
  * @Modified by
  */
